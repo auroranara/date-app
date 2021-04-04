@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="tips">请输入想要查询的年份：</div>
+        <el-input
+          class="year"
+          v-model="year"
+          @change="onYearChange"
+          placeholder="请输入年份"
+        ></el-input>
+        <div class="result">{{result}}</div>
+      </div>
+    </div>
+  </body>
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: function () {
+        return {
+          year: undefined,
+          result: '',
+        };
+      },
+      methods: {
+        onYearChange: function (value) {
+          console.log('input', value);
+          if (isNaN(value)) {
+            this.result = `请输入数字哦`;
+          } else if (
+            +value % 400 === 0 ||
+            (+value % 4 === 0 && +value % 100 !== 0)
+          ) {
+            this.result = `${value}年是闰年`;
+          } else {
+            this.result = `${value}年是平年`;
+          }
+        },
+      },
+    });
+  </script>
+  <style>
+    body {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('./images/bg.jpg');
+      background-position: center center;
+      background-size: cover;
+    }
+    .container {
+      min-height: 200px;
+    }
+    .tips {
+      margin: 15px 0;
+      font-size: 17px;
+      color: #777777;
+      font-weight: bold;
+    }
+    .year {
+      width: 200px;
+    }
+    .result {
+      margin: 15px 0;
+      font-size: 17px;
+      color: #777777;
+      font-weight: bold;
+    }
+  </style>
+</html>
